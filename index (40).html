@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отображение био</title>
+    <style>
+        body {
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1e1e1e;
+            color: white;
+            text-align: center;
+        }
+        #bio-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="bio-container">
+        <h1>Био:</h1>
+        <div id="bio-content">
+            <!-- Содержимое био будет здесь -->
+        </div>
+    </div>
+
+    <script>
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        var title = getParameterByName('title');
+
+        if (title) {
+            document.getElementById('bio-content').innerHTML = '<p>' + title + '</p>';
+        } else {
+          document.getElementById('bio-content').innerHTML = '<p>Ничего не найдено</p>';
+        }
+    </script>
+</body>
+</html>
