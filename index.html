@@ -1,114 +1,60 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Био</title>
+    <title>Поздравление с Днем Рождения</title>
     <style>
         body {
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-color: black;
-            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000000;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            font-family: monospace;
-            color: white;
-            transition: background-image 0.5s ease;
+            height: 100vh;
+            margin: 0;
         }
-        .content-container {
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 15px;
-            border: 1px solid #666666;
-            margin: 0 15px;
-            position: relative;
-            backdrop-filter: blur(10px);
-            width: 700px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .greeting-container {
+            background-color: #70707075;
+            padding: 90px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             text-align: center;
-            box-shadow: 0 0 5px; 
+            max-width: 600px;
+            border: 2px solid #e0e0e0;
+            position: relative;
+            
         }
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 10px;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border: 1px solid #666666;
-            box-shadow: 0 0 5px; 
+         .greeting-container::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff);
+            z-index: -1; /* Put it behind the container */
+            border-radius: 25px; /* Match container radius */
+            filter: blur(15px); /* Apply blur for glow effect */
+            
         }
-         h2 {
-                margin-bottom: 10px;
-                font-size: 1.8em;
-                text-shadow: 0 0 5px; 
-            }
-         p {
-              white-space: pre-line;
-               text-shadow: 0 0 5px; 
-              font-size: 1.1em;
-          }
+        .greeting-text {
+          font-size: 22px;
+           margin-top: 15px;
+        }
     </style>
 </head>
 <body>
-    <div class="content-container">
-        <img src="" alt="Аватар" class="avatar">
-        <h2></h2>
-        <p></p>
+    <div class="greeting-container">
+        <h1 class="title">С Днем Рождения!</h1>
+        <p class="greeting-text" id="greeting"></p>
     </div>
 
     <script>
-        function getParameterByName(name, url = window.location.href) {
-            name = name.replace(/[[]]/g, '\$&');
-            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/+/g, ' '));
-        }
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        const greeting = urlParams.get('greeting');
 
-        function applyBioData() {
-            var background_url = getParameterByName('background_url');
-            var avatar_url = getParameterByName('avatar_url');
-            var title = getParameterByName('title');
-            var text = getParameterByName('text');
-            var avatar_container_color = getParameterByName('avatar_container_color');
-            var title_color = getParameterByName('title_color');
-            var text_color = getParameterByName('text_color');
-
-
-          if (background_url) {
-              document.body.style.backgroundImage = 'url("' + background_url + '")';
-              }
-          if (avatar_url) {
-            document.querySelector('.avatar').src = avatar_url;
-            }
-          if (title) {
-            document.querySelector('h2').textContent = title;
-            }
-         if (text) {
-            document.querySelector('p').textContent = text;
-            }
-          if (avatar_container_color) {
-            document.querySelector('.content-container').style.boxShadow = 0 0 5px ${avatar_container_color};
-             document.querySelector('.avatar').style.boxShadow = 0 0 5px ${avatar_container_color};
-              }
-          if(title_color){
-              document.querySelector('h2').style.textShadow = 0 0 5px ${title_color};
-              }
-         if(text_color){
-            document.querySelector('p').style.textShadow = 0 0 5px ${text_color};
-            }
-
-
-        }
-        applyBioData();
+        document.getElementById('greeting').textContent = decodeURIComponent(greeting);
+        
     </script>
 </body>
 </html>
