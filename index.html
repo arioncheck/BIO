@@ -3,54 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Отображение био</title>
+    <title>Био</title>
     <style>
         body {
-            font-family: monospace;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: black;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #1e1e1e;
+            font-family: monospace;
             color: white;
+            transition: background-image 0.5s ease;
+        }
+        .content-container {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid #666666;
+            margin: 0 15px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            width: 700px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
+            box-shadow: 0 0 5px; 
         }
-        #bio-container {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px;
+        .avatar {
+            width: 150px;
+            height: 150px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 1px solid #666666;
+            box-shadow: 0 0 5px; 
         }
-        h1 {
-            margin-bottom: 15px;
-        }
+         h2 {
+                margin-bottom: 10px;
+                font-size: 1.8em;
+                text-shadow: 0 0 5px; 
+            }
+         p {
+              white-space: pre-line;
+               text-shadow: 0 0 5px; 
+              font-size: 1.1em;
+          }
     </style>
 </head>
 <body>
-    <div id="bio-container">
-        <h1>Био:</h1>
-        <div id="bio-content">
-            <!-- Содержимое био будет здесь -->
-        </div>
+    <div class="content-container">
+        <img src="" alt="Аватар" class="avatar">
+        <h2></h2>
+        <p></p>
     </div>
 
     <script>
         function getParameterByName(name, url = window.location.href) {
-            name = name.replace(/[\[\]]/g, '\\$&');
+            name = name.replace(/[[]]/g, '\$&');
             var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
                 results = regex.exec(url);
             if (!results) return null;
             if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            return decodeURIComponent(results[2].replace(/+/g, ' '));
         }
 
-        var title = getParameterByName('title');
+        function applyBioData() {
+            var background_url = getParameterByName('background_url');
+            var avatar_url = getParameterByName('avatar_url');
+            var title = getParameterByName('title');
+            var text = getParameterByName('text');
+            var avatar_container_color = getParameterByName('avatar_container_color');
+            var title_color = getParameterByName('title_color');
+            var text_color = getParameterByName('text_color');
 
-        if (title) {
-            document.getElementById('bio-content').innerHTML = '<p>' + title + '</p>';
-        } else {
-          document.getElementById('bio-content').innerHTML = '<p>Ничего не найдено</p>';
+
+          if (background_url) {
+              document.body.style.backgroundImage = 'url("' + background_url + '")';
+              }
+          if (avatar_url) {
+            document.querySelector('.avatar').src = avatar_url;
+            }
+          if (title) {
+            document.querySelector('h2').textContent = title;
+            }
+         if (text) {
+            document.querySelector('p').textContent = text;
+            }
+          if (avatar_container_color) {
+            document.querySelector('.content-container').style.boxShadow = 0 0 5px ${avatar_container_color};
+             document.querySelector('.avatar').style.boxShadow = 0 0 5px ${avatar_container_color};
+              }
+          if(title_color){
+              document.querySelector('h2').style.textShadow = 0 0 5px ${title_color};
+              }
+         if(text_color){
+            document.querySelector('p').style.textShadow = 0 0 5px ${text_color};
+            }
+
+
         }
+        applyBioData();
     </script>
 </body>
 </html>
